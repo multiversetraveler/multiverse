@@ -1,0 +1,19 @@
+{
+  "name": "multiverse-api",
+  "version": "0.0.1",
+  "description": "This Api is for manager all actions of Game Multiverse Traveler Merkz",
+  "main": "app.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/multiversetraveler/multiverse.git"
+  },
+  "author": "MTM-Team",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/multiversetraveler/multiverse/issues"
+  },
+  "homepage": "https://github.com/multiversetraveler/multiverse#readme"
+}
