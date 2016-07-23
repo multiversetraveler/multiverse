@@ -26,5 +26,8 @@ O ambiente é configurado usando Docker, você pode criar/baixar a imagem que va
  
 **Script de Inicialização do Container**
 
-O arquivo do container `./start.sh` é responsável por toda inicialização e configuração do contianer, o modelo encontra-s no repositório  `docker/start.sh` onde toda a inicialização é configurada.
+O arquivo do container `./start.sh` é responsável por toda inicialização e configuração do contianer, o modelo encontra-s no repositório  [docker/start.sh](https://github.com/eHattori/multiverse/blob/master/docker/start.sh) onde toda a inicialização é configurada.
+
+
+
 
