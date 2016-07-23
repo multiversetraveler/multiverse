@@ -1,4 +1,4 @@
-## Multiverse Traveler Merkz
+## Multiverse Traveler Merkz / API
 
 Esta API gerencia todas as ações e ciclos do game Multiverse Traveler Merkz
 
@@ -23,6 +23,8 @@ O ambiente é configurado usando Docker, você pode criar/baixar a imagem que va
  * Mocha           **v2.5.3**
  * Pm2             **v1.1.3**
  * Istanbul        **v0.4.4**
+ 
+**Script de Inicialização do Container**
 
- O container conta com um arquivo `docker/start.sh` onde toda a inicialização é configurada.
+O arquivo do container `./start.sh` é responsável por toda inicialização e configuração do contianer, o modelo encontra-s no repositório  `docker/start.sh` onde toda a inicialização é configurada.
 
