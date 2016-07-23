@@ -6,22 +6,23 @@ Esta API gerencia todas as ações e ciclos do game Multiverse Traveler Merkz
 
 O ambiente é configurado usando Docker, você pode criar/baixar a imagem que vai gerar o container
 
-**Baixar do Docker Hub
+**Baixar do Docker Hub**
 
- $ sudo docker pull ehattori/nodejs
+    $ sudo docker pull ehattori/nodejs
 
-**Gerar a partir do dockerfile do projeto
+**Gerar a partir do dockerfile do projeto**
 
- $ cd docker && sudo docker build -t multiverse/api .
+    $ cd docker && sudo docker build -t multiverse/api .
 
- ### Caracteristicas do Container
+ 
+ **Caracteristicas do Container**
 
- * Linux Ubuntu    v14.04
- * NodeJs          v4.4.7
- * Npm             v2.15.8
- * Mocha           v2.5.3
- * Pm2             v1.1.3
- * Istanbul        v0.4.4
+ * Linux Ubuntu    **v14.04**
+ * NodeJs          **v4.4.7**
+ * Npm             **v2.15.8**
+ * Mocha           **v2.5.3**
+ * Pm2             **v1.1.3**
+ * Istanbul        **v0.4.4**
 
  O container conta com um arquivo `docker/start.sh` onde toda a inicialização é configurada.
 
