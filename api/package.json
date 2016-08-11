@@ -4,6 +4,7 @@
   "description": "This Api is for manager all actions of Game Multiverse Traveler Merkz",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "npm test"
   },
   "repository": {
@@ -15,5 +16,17 @@
   "bugs": {
     "url": "https://github.com/multiversetraveler/multiverse/issues"
   },
-  "homepage": "https://github.com/multiversetraveler/multiverse#readme"
+  "homepage": "https://github.com/multiversetraveler/multiverse#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "compression": "^1.6.2",
+    "config": "^1.21.0",
+    "consign": "^0.1.2",
+    "cors": "^2.7.1",
+    "elasticsearch": "^11.0.1",
+    "express": "^4.14.0",
+    "moment": "^2.14.1",
+    "passport": "^0.3.2",
+    "passport-http-bearer": "^1.0.1"
+  }
 }
