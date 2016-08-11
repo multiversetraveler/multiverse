@@ -23,11 +23,11 @@ app.listen(config.port, function(){
 });
 
 consign()
-    .then('modulos/infra')
-    .then('modulos/models')
-    .then('modulos/domains')
-    .then('modulos/helpers')
-    .then('modulos/controllers')
+    .then('modules/infra')
+    .then('modules/models')
+    .then('modules/domains')
+    .then('modules/helpers')
+    .then('modules/controllers')
     .then('routes')
     .into(app);
 
