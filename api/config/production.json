@@ -9,6 +9,8 @@
   },
   "elasticsearch" : {
     "host" : "localhost:9200",
-    "log"  : "error"
+    "log"  : "error",
+    "index": "useridprod",
+    "type" : "usertypeprod"
   }
 }
