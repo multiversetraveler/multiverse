@@ -21,7 +21,7 @@ describe("Testa o dominio do token",function(){
         env                  = process.env.NODE_ENV;
         process.env.NODE_ENV = "test";
 
-        app    = require('../app');
+        app    = require('../../app');
         should = require('should');
         config = require('config');
         moment = require('moment');

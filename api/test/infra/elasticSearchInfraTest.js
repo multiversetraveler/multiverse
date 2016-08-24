@@ -19,7 +19,7 @@ describe("Testas as conexões de Infra do ElasticSearch", function(){
         env = process.env.NODE_ENV;
         process.env.NODE_ENV = "test";
 
-        app    = require('../app');
+        app    = require('../../app');
         should = require('should');
         client = app.modules.infra.elasticSearchInfra;
 

@@ -1,11 +1,11 @@
 {
   "port" : 3001,
-  "postgres": {
-    "database" : "multiverse_prod",
-    "username" : "postgres",
-    "password" : "postgres",
+  "mysql": {
+    "database" : "multiversedb",
+    "username" : "multiverse",
+    "password" : "!multiverse!",
     "host"     : "localhost",
-    "port"     : 5432
+    "port"     : 3306
   },
   "elasticsearch" : {
     "host" : "localhost:9200",
