@@ -51,7 +51,7 @@ describe("Testas as conexões de Infra do ElasticSearch", function(){
         var conn = client.getConnection();
 
         conn.ping({
-            requestTimeout : Infinity,
+            requestTimeout : 3000,
             hello : "elasticsearch!"
         },function(err){
             if(err)

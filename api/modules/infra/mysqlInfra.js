@@ -32,6 +32,7 @@ module.exports = function(app){
                         host: config.mysql.host,
                         port: config.mysql.port,
                         dialect : 'mysql',
+                        logging: false,
                         define : {
                             freezeTableName : true,
                             timestamps      : false
