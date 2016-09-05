@@ -1,1 +1,2 @@
-CREATE DATABASE multiverse;
+CREATE DATABASE multiversedb;
+CREATE DATABASE multiversedb_test;

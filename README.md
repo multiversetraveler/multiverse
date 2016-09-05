@@ -6,9 +6,22 @@ Esta API gerencia todas as ações e ciclos do game Multiverse Traveler Merkz
 
 O ambiente é configurado usando Docker, você pode criar/baixar a imagem que vai gerar o container
 
-**Baixar do Docker Hub**
+**Baixar do Docker Hub a Imagem do NodeJS e Executar o Container**
 
     $ sudo docker pull ehattori/nodejs
+    $ sudo docker run -it -p 3000:3000 --net host -v /$SOURCE/multiverse/api/:/home/project ehattori/nodejs
+
+    
+**Baixar do Docker Hub a Imagem do Elasticsearch e Executar o Container**
+
+    $ sudo docker pull elasticsearch:latest
+    $ sudo docker run -d -p 9200:9200 -v "$PWD/esdata":/usr/share/elasticsearch/data elasticsearch
+        
+**Baixar do Docker Hub a Imagem do MySql e Executar o Container**
+
+    $ sudo docker pull mysql:latest
+    $ sudo docker run -d --net="host" -p 3306:3306 -v /var/lib/mysql:/var/lib/mysql --name=mysql-multiverse --env="MYSQL_ROOT_PASSWORD=admin" mysql
+    
 
 **Gerar a partir do dockerfile do projeto**
 

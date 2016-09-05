@@ -19,7 +19,7 @@ describe("Testas as conexões de Infra do ElasticSearch", function(){
         env = process.env.NODE_ENV;
         process.env.NODE_ENV = "test";
 
-        app    = require('../app');
+        app    = require('../../app');
         should = require('should');
         client = app.modules.infra.elasticSearchInfra;
 
@@ -51,7 +51,7 @@ describe("Testas as conexões de Infra do ElasticSearch", function(){
         var conn = client.getConnection();
 
         conn.ping({
-            requestTimeout : Infinity,
+            requestTimeout : 3000,
             hello : "elasticsearch!"
         },function(err){
             if(err)
