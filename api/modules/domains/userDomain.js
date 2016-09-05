@@ -9,6 +9,7 @@ module.exports = function(app){
 
     var userModel = app.modules.models.userModel;
     var Validator = require('schema-validator');
+    var log       = app.modules.infra.logInfra;
 
     var userDomain = {
 
@@ -70,6 +71,7 @@ module.exports = function(app){
             try {
 
                 var objValidation = this.isValid(userObject);
+                log.info("OBJETO USUARIO SALVO : " + objValidation.toString());
 
                 if(!objValidation._error){
                     var promisse = null;
@@ -92,10 +94,11 @@ module.exports = function(app){
                     });
 
                 } else {
+                    log.error(objValidation._error);
                     callback(objValidation._error, null);
                 }
             } catch(e){
-                console.log(e);
+                log.error(e);
                 callback(e,null);
             }
         },
@@ -115,7 +118,7 @@ module.exports = function(app){
                 }
 
             }).catch(function(e){
-                console.log(e);
+                log.error(e);
                 callback(e, null);
             });
         },

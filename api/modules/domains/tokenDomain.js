@@ -9,6 +9,7 @@ module.exports = function(app){
 
     var client    = (app.modules.infra.elasticSearchInfra).getConnection();
     var config    = require('config');
+    var log       = app.modules.infra.logInfra;
     var moment    = require("moment");
     var randtoken = require('rand-token');
 
@@ -34,10 +35,13 @@ module.exports = function(app){
                     data : moment().format("YYYY-MM-DD HH:mm:ss")
                 }
             }, function(err, response){
-                if(err)
+                if(err){
+                    log.error(err);
                     callback(err, null);
-                else
+                } else {
                     callback(null,response);
+                }
+
             });
         },
 
@@ -54,8 +58,12 @@ module.exports = function(app){
                 type  : config.elasticsearch.type,
                 id : token
             }, function(err, response){
-                if(err) callback(err, null);
-                callback(null, response);
+                if(err){
+                    log.error(err);
+                    callback(err, null);
+                } else {
+                    callback(null, response);
+                }
             });
         },
 
@@ -72,6 +80,8 @@ module.exports = function(app){
                 type  : config.elasticsearch.type,
                 id : token
             }, function(err, responde){
+                if(err)
+                    log.error(err);
                 callback(err,responde);
             });
         },
@@ -96,8 +106,10 @@ module.exports = function(app){
                     if(err){
                         if(err.status)
                             callback(null, { isValid : false});
-                        else
+                        else{
+                            log.error(err);
                             callback(err);
+                        }
                     }
 
                     var now  = moment();
@@ -106,7 +118,10 @@ module.exports = function(app){
 
                     if(diff >= 15){
                         _this.deleteToken(token, function(err, data){
-                            if(err) callback(err);
+                            if(err){
+                                log.error(err);
+                                callback(err);
+                            }
                             callback(null, { isValid : false });
                         });
                     } else {
@@ -115,10 +130,9 @@ module.exports = function(app){
                 });
 
             } catch(e){
-                console.log(e);
+                log.error(err);
                 callback(e);
             }
-
         }
     };
 

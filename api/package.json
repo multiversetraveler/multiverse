@@ -19,6 +19,8 @@
   "homepage": "https://github.com/multiversetraveler/multiverse#readme",
   "dependencies": {
     "body-parser": "^1.15.2",
+    "bunyan": "^1.8.1",
+    "bunyan-mysql": "0.0.1",
     "compression": "^1.6.2",
     "config": "^1.21.0",
     "consign": "^0.1.2",
