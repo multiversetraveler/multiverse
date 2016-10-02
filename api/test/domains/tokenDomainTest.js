@@ -15,6 +15,8 @@ describe("Testa o dominio do token",function(){
     var config;
     var client;
     var moment;
+    var cryptoHelper;
+    var md5;
 
     before(function(done){
 
@@ -25,11 +27,13 @@ describe("Testa o dominio do token",function(){
         should = require('should');
         config = require('config');
         moment = require('moment');
+        md5    = require('md5');
+        cryptoHelper = app.modules.helpers.cryptoHelper;
         client = (app.modules.infra.elasticSearchInfra).getConnection();
 
         tokenDomain = app.modules.domains.tokenDomain;
         user = {
-            userid : 123,
+            user_id : 123,
             token  : "123"
         };
 
@@ -42,9 +46,9 @@ describe("Testa o dominio do token",function(){
 
     it("Deveria setar um token", function(done){
 
-        tokenDomain.setToken(user.userid, user.token, function(err,data){
+        tokenDomain.setToken(user.user_id, user.token, function(err,data){
             if(err) done(err);
-            (data._id !== undefined).should.be.true();
+            (data !== undefined).should.be.true();
             done();
         });
     });
@@ -60,16 +64,16 @@ describe("Testa o dominio do token",function(){
 
     it("Deveria gerar um token válido para o user ID", function(done){
 
-        tokenDomain.createToken(user.userid, function(err, data){
+        tokenDomain.createToken(user, function(err, data){
             if(err) done(err);
-            (data._id !== undefined).should.be.true();
+            (data !== undefined).should.be.true();
             done();
         });
     });
 
     it("Deveria deletar um token", function(done){
         tokenDomain.deleteToken(user.token, function(err, data){
-           if(err) done(err);
+            if(err) done(err);
             try {
                 data.found.should.be.true();
                 done();
@@ -91,7 +95,7 @@ describe("Testa o dominio do token",function(){
             id : token_valido,
             body : {
                 token : token_valido,
-                userid : user.userid,
+                user_id : user.user_id,
                 data : moment().format("YYYY-MM-DD HH:mm:ss")
             }
         }, function(err, response){
@@ -108,14 +112,22 @@ describe("Testa o dominio do token",function(){
     it("Deveria não validar um token inválido", function(done){
 
         tokenDomain.isValid("TOKENINVALIDO", function(err, data){
-            if(err) done(err);
-            data.isValid.should.be.false();
+            err.status.should.be.exactly(404);
             done();
         });
     });
 
-    it("Deveria validar um token expirado como falso", function(done){
-        var token_valido = "OUTROTOKENVALIDO";
+    it("Deveria validar um token expirado e gerar um novo token", function(done){
+
+        var user = {
+            username : "Tiburso5",
+            password : md5('TibursoDoidao'),
+            email    : 'tibursodoidao5@gmail.com',
+            user     : '345',
+            type     : 'A'
+        };
+
+        var token_valido = cryptoHelper.encrypt(user);
 
         //Cria token valido
         client.create({
@@ -124,7 +136,7 @@ describe("Testa o dominio do token",function(){
             id : token_valido,
             body : {
                 token : token_valido,
-                userid : user.userid,
+                user_id : user.user_id,
                 data : moment().subtract(16,'m').format("YYYY-MM-DD HH:mm:ss")
             }
         }, function(err, response){
@@ -132,7 +144,9 @@ describe("Testa o dominio do token",function(){
             if(err) done(err);
             tokenDomain.isValid(token_valido, function(err, data){
                 if(err) done(err);
-                data.isValid.should.be.false();
+
+                (data.token !== token_valido).should.be.true();
+                data.isValid.should.be.true();
                 done();
             });
         });

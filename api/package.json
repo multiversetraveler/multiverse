@@ -20,20 +20,28 @@
   "dependencies": {
     "body-parser": "^1.15.2",
     "bunyan": "^1.8.1",
-    "bunyan-mysql": "0.0.1",
+    "bunyan-mysql": "0.0.5",
     "compression": "^1.6.2",
     "config": "^1.21.0",
     "consign": "^0.1.2",
     "cors": "^2.7.1",
     "elasticsearch": "^11.0.1",
     "express": "^4.14.0",
+    "jsonwebtoken": "^7.1.9",
     "md5": "^2.2.1",
     "moment": "^2.14.1",
     "mysql": "^2.11.1",
     "passport": "^0.3.2",
     "passport-http-bearer": "^1.0.1",
+    "promise": "^7.1.1",
     "rand-token": "^0.2.1",
     "schema-validator": "^3.3.0",
     "sequelize": "^3.24.1"
+  },
+  "devDependencies": {
+    "lodash": "^3.10.1",
+    "mock-express-request": "^0.1.1",
+    "mock-express-response": "^0.1.2",
+    "supertest": "^2.0.0"
   }
 }

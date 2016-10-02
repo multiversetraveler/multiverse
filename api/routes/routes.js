@@ -7,8 +7,11 @@
  */
 module.exports = function(app){
 
-    var auth = app.modules.authHelper;
+    var userController  = app.modules.controllers.userController;
 
-    app.all('*');
+    //USER ROUTES
+    app.post("/api/user", userController.create);
 
+    //AUTH ROUTES
+    app.post("/api/auth/login", userController.login);
 };
