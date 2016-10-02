@@ -26,7 +26,6 @@ describe("Testas as conexões de Infra do ElasticSearch", function(){
         done();
     });
 
-
     it("Deveria estar conectado ao elasticSearch", function(done){
 
         var conn = client.getConnection();
@@ -39,25 +38,6 @@ describe("Testas as conexões de Infra do ElasticSearch", function(){
                 done(err);
             else
             done();
-        });
-    });
-
-    it("Deveria dar erro ao não conseguir se conectar", function(done){
-
-        var config = require("config");
-
-        config.elasticsearch.host = "teste";
-
-        var conn = client.getConnection();
-
-        conn.ping({
-            requestTimeout : 3000,
-            hello : "elasticsearch!"
-        },function(err){
-            if(err)
-                done();
-            else
-                done("Erro");
         });
     });
 

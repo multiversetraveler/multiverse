@@ -9,6 +9,7 @@ module.exports = function(app){
 
     var userModel = app.modules.models.userModel;
     var Validator = require('schema-validator');
+    var Promise   = require('promise');
     var log       = app.modules.infra.logInfra;
 
     var userDomain = {
@@ -76,10 +77,25 @@ module.exports = function(app){
                 if(!objValidation._error){
                     var promisse = null;
 
+                    var _self = this;
+
                     if(userObject.user_id){
                         promisse = this._update(userObject);
                     } else {
-                        promisse = this._create(userObject);
+                        promisse = new Promise(function(resolve, reject){
+                            userModel.findAll({ where :{ username : userObject.username}}).then(function(data){
+
+                                if(data.length > 0 &&  data[0].dataValues){
+                                    reject({ error : "Username already registered"})
+                                } else {
+                                    _self._create(userObject).then(function(dt){
+                                        resolve(dt);
+                                    }).catch(function(err){
+                                        reject(err);
+                                    });
+                                }
+                            });
+                        });
                     }
 
                     var _this = this;
@@ -139,6 +155,58 @@ module.exports = function(app){
          */
         _update : function(userObject){
             return userModel.update(userObject, { where : {user_id : userObject.user_id }});
+        },
+
+
+        /**
+         * Valida se o usuario existe na base a
+         * partir do email e senha
+         * @param email
+         * @param password
+         * @param callback
+         */
+        login : function(email, password, callback) {
+
+            var schema =  {
+                email : {
+                    type: String,
+                    required: true,
+                    length: {
+                        min: 3,
+                        max: 32
+                    },
+                    test: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
+                },
+                password : {
+                    type: String,
+                        required: true,
+                        length: {
+                        min: 32,
+                            max: 32
+                    },
+                    test: /^[a-f0-9]{32}$/
+                }
+            };
+
+            var validator = new Validator(schema);
+            var resultadovalidacaoEmailPassword = validator.check({ email : email, password : password });
+
+            if(resultadovalidacaoEmailPassword._error){
+                callback(resultadovalidacaoEmailPassword);
+            } else {
+                userModel.findAll({where : { email : email, password : password}}).then(function(data){
+
+                    if(data.length > 0 && data[0].dataValues){
+                        delete data[0].dataValues.password;
+                        callback(null, data[0].dataValues);
+                    } else {
+                        callback({ error : "User Not Found"});
+                    }
+
+                }).catch(function(err){
+                    callback(err);
+                });
+            }
         }
     };
 
